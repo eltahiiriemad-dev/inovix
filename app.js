@@ -1,6 +1,50 @@
 (function () {
   "use strict";
 
+  /* Live chat on WhatsApp. Put the business number here in international
+     format with digits only (country code first, no + or spaces), for
+     example "212600000000". Until it is set, the chat button says the
+     chat is not connected yet. */
+  var WHATSAPP_NUMBER = "212728041767";
+  var WHATSAPP_TEXT = "Hello Inovix Technologies, I would like to talk about a project.";
+
+  (function chat() {
+    var wa = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12.04 2a9.9 9.9 0 00-8.4 15.1L2 22l5-1.6A9.9 9.9 0 1012.04 2zm0 1.8a8.1 8.1 0 11-4.3 15l-.3-.2-2.9.9.9-2.8-.2-.3A8.1 8.1 0 0112.04 3.8zM8.6 7.6c-.2 0-.5.1-.7.3-.3.3-1 1-1 2.4s1 2.7 1.2 2.9c.1.2 2 3.2 5 4.4 2.5 1 3 .8 3.5.7.6-.1 1.8-.7 2-1.4.3-.7.3-1.3.2-1.4l-.5-.3-1.8-.9c-.3-.1-.5-.1-.7.1l-.8 1c-.1.2-.3.2-.6.1-.3-.2-1.1-.4-2.1-1.3-.8-.7-1.3-1.5-1.5-1.8-.1-.3 0-.4.1-.6l.4-.5.3-.4c.1-.2.1-.3 0-.5l-.8-2c-.2-.5-.4-.4-.6-.4z"/></svg>';
+    var live = /^\d{8,15}$/.test(WHATSAPP_NUMBER);
+    var href = live ? "https://wa.me/" + WHATSAPP_NUMBER + "?text=" + encodeURIComponent(WHATSAPP_TEXT) : "";
+    var box = document.createElement("div");
+    box.className = "chat";
+    box.innerHTML =
+      '<div class="chat-panel" id="chat-panel" role="dialog" aria-label="Chat with us" inert>' +
+        '<div class="chat-head"><b>Chat with us</b><span>We reply on WhatsApp</span></div>' +
+        '<div class="chat-body"><div class="bubble">Hello. Tell us what you are working on and we will reply as soon as we can.</div>' +
+        (live
+          ? '<a class="btn wa" href="' + href + '" target="_blank" rel="noopener">' + wa + 'Chat on WhatsApp</a><p class="chat-note">Opens WhatsApp in a new tab.</p>'
+          : '<p class="off">Live chat is not connected yet. For now, please use the contact form.</p><a class="btn btn-primary" href="contact.html">Open contact form</a>') +
+        '</div></div>' +
+      '<button class="chat-fab" id="chat-btn" type="button" aria-expanded="false" aria-controls="chat-panel" aria-label="Open chat">' +
+        '<svg class="m" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5.5A2.5 2.5 0 016.5 3h11A2.5 2.5 0 0120 5.5v8a2.5 2.5 0 01-2.5 2.5H11l-4.5 4v-4h0A2.5 2.5 0 014 13.5z"/><path d="M8.5 8.5h7M8.5 11.5h4.5"/></svg>' +
+        '<svg class="x" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg><i class="chat-dot"></i></button>';
+    document.body.appendChild(box);
+    var fab = box.querySelector("#chat-btn"), pn = box.querySelector("#chat-panel"), dot = box.querySelector(".chat-dot");
+    function set(o) {
+      fab.setAttribute("aria-expanded", String(o));
+      fab.setAttribute("aria-label", o ? "Close chat" : "Open chat");
+      pn.classList.toggle("open", o);
+      pn.toggleAttribute("inert", !o);
+      if (o && dot) dot.style.display = "none";
+    }
+    fab.addEventListener("click", function () { set(fab.getAttribute("aria-expanded") !== "true"); });
+    document.addEventListener("keydown", function (e) {
+      if (e.key === "Escape" && fab.getAttribute("aria-expanded") === "true") { set(false); fab.focus(); }
+    });
+  })();
+
+  /* Legal pages are not built yet: keep those links from jumping the page */
+  document.querySelectorAll("a[data-soon]").forEach(function (a) {
+    a.addEventListener("click", function (e) { e.preventDefault(); });
+  });
+
   /* Mobile menu */
   var btn = document.getElementById("menu-btn");
   var panel = document.getElementById("menu-panel");
