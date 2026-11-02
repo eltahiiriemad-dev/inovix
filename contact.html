@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Contact | Inovix Technologies</title><meta name="description" content="Contact form for discussing your project or business challenge.">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="styles.css">
+<style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}</style>
+</head><body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-head">
+  <div class="bar"><a class="brand" href="index.html" aria-label="Inovix Technologies, home"><img class="brand-mark" src="logo.png" alt="" height="40"><span class="brand-text"><span class="brand-name">Inovix</span><span class="brand-sub">Technologies</span></span></a>
+    <nav class="nav-links" aria-label="Main"><ul style="display:contents;list-style:none;margin:0;padding:0"><li style="display:block"><a href="index.html">Home</a></li><li style="display:block"><a href="solutions.html">Solutions</a></li><li style="display:block"><a href="industries.html">Industries</a></li><li style="display:block"><a href="work.html">Our Work</a></li><li style="display:block"><a href="resources.html">Resources</a></li><li style="display:block"><a href="about.html">About Us</a></li></ul></nav>
+    <div class="actions"><a class="btn btn-primary" href="contact.html" aria-current="page">Get in Touch <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 8h11M9 4l4 4-4 4"/></svg></a>
+    <button class="burger" id="menu-btn" type="button" aria-expanded="false" aria-controls="menu-panel" aria-label="Open menu"><span class="ln"><i></i><i></i><i></i></span></button></div>
+  </div>
+</header>
+<div class="mpanel" id="menu-panel">
+  <nav aria-label="Mobile"><a class="link" href="index.html">Home</a><a class="link" href="solutions.html">Solutions</a><a class="link" href="industries.html">Industries</a><a class="link" href="work.html">Our Work</a><a class="link" href="resources.html">Resources</a><a class="link" href="about.html">About Us</a><a class="link" href="contact.html" aria-current="page">Contact</a></nav>
+  <a class="btn btn-primary" href="contact.html">Get in Touch <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 8h11M9 4l4 4-4 4"/></svg></a>
+</div>
+<main id="main">
+<div class="wrap contact">
+<div><span class="eyebrow">Contact</span><h1>Let&rsquo;s talk about what you need.</h1>
+<p class="lead">Tell us about your project or the problem you are trying to solve. A rough description is enough to start.</p>
+<ul class="expect" style="margin-left:0;padding:0;list-style:none;margin-top:36px">
+<li><b>Tell us the context</b>What your business does and what is not working well.</li>
+<li><b>We read it properly</b>Your message goes to people who will understand it.</li>
+<li><b>We reply by email</b>With questions, ideas or a suggested next step.</li></ul></div>
+<div class="form-panel"><h2>Send a message</h2><p class="sub">Fields marked optional can be left empty.</p>
+<form id="contact-form" novalidate method="POST" action="https://formspree.io/f/YOUR_FORM_ID" data-endpoint="https://formspree.io/f/YOUR_FORM_ID">
+<input type="hidden" name="_subject" value="New project enquiry from the website">
+<div class="row2"><div class="field"><label for="name">Full name</label><input id="name" name="name" type="text" autocomplete="name" required data-req="Please enter your name."><span class="msg" aria-live="polite"></span></div>
+<div class="field"><label for="business">Business name<small>(optional)</small></label><input id="business" name="business" type="text" autocomplete="organization"><span class="msg"></span></div></div>
+<div class="row2"><div class="field"><label for="email">Email address</label><input id="email" name="email" type="email" autocomplete="email" inputmode="email" required data-req="Please enter your email address."><span class="msg" aria-live="polite"></span></div>
+<div class="field"><label for="type">Project type</label><select id="type" name="type" required data-req="Please choose a project type."><option value="" selected disabled>Select a project type</option><option>Custom software</option><option>Website design and development</option><option>Business management system</option><option>Workflow automation</option><option>AI-powered solution</option><option>Digital transformation</option><option>Something else</option></select><span class="msg" aria-live="polite"></span></div></div>
+<div class="field"><label for="message">Message / project description</label><textarea id="message" name="message" required data-req="Please describe your project." placeholder="What are you trying to achieve, and what is getting in the way?"></textarea><span class="msg" aria-live="polite"></span></div>
+<div class="hp" aria-hidden="true"><label>Leave this empty <input type="text" name="_gotcha" tabindex="-1" autocomplete="off"></label></div>
+<div id="form-status" class="status" tabindex="-1"></div>
+<div class="form-foot"><button class="btn btn-primary" id="form-submit" type="submit">Send message <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 8h11M9 4l4 4-4 4"/></svg></button><p>We use your details only to reply to this message.</p></div>
+</form></div></div>
+</main>
+<footer class="foot"><div class="wrap">
+  <div class="foot-grid">
+    <div><a class="brand" href="index.html" aria-label="Inovix Technologies, home"><img class="brand-mark" src="logo.png" alt="" height="40"><span class="brand-text"><span class="brand-name">Inovix</span><span class="brand-sub">Technologies</span></span></a><p>Technology and software solutions for businesses that want their tools to work as hard as they do.</p></div>
+    <nav aria-label="Footer"><ul><li><a href="index.html">Home</a></li><li><a href="solutions.html">Solutions</a></li><li><a href="industries.html">Industries</a></li><li><a href="work.html">Our Work</a></li><li><a href="resources.html">Resources</a></li><li><a href="about.html">About Us</a></li><li><a href="contact.html">Contact</a></li></ul></nav>
+  </div>
+  <div class="legal">&copy; 2026 Inovix Technologies. All rights reserved.</div>
+</div></footer>
+<script src="app.js"></script>
+</body></html>
