@@ -40,9 +40,57 @@
     });
   })();
 
+  /* Cookie consent. The choice is remembered in this browser only. */
+  (function cookies() {
+    var KEY = "inovix-cookie-consent";
+    function read() { try { return localStorage.getItem(KEY); } catch (e) { return null; } }
+    function write(v) { try { localStorage.setItem(KEY, v); } catch (e) {} }
+    var box = document.createElement("div");
+    box.className = "cookie";
+    box.setAttribute("role", "dialog");
+    box.setAttribute("aria-label", "Cookie preferences");
+    box.setAttribute("inert", "");
+    box.innerHTML =
+      '<h2>We value your privacy</h2>' +
+      '<p>We use cookies to make this website work and, with your permission, to understand how it is used so we can improve it. Read our <a href="privacy.html">Privacy Policy</a>.</p>' +
+      '<div class="cookie-actions"><button class="btn btn-ghost" type="button" data-c="essential">Essential only</button>' +
+      '<button class="btn btn-primary" type="button" data-c="all">Accept all</button></div>';
+    document.body.appendChild(box);
+    function show() {
+      box.removeAttribute("inert");
+      document.body.style.setProperty("--cookie-h", box.offsetHeight + "px");
+      box.classList.add("show");
+      document.body.classList.add("cookie-open");
+    }
+    function hide() {
+      box.classList.remove("show");
+      box.setAttribute("inert", "");
+      document.body.classList.remove("cookie-open");
+    }
+    box.addEventListener("click", function (e) {
+      var b = e.target.closest("[data-c]");
+      if (!b) return;
+      write(b.getAttribute("data-c"));
+      hide();
+    });
+    document.querySelectorAll("a[data-cookie]").forEach(function (a) {
+      a.addEventListener("click", function (e) { e.preventDefault(); show(); });
+    });
+    if (!read()) setTimeout(show, 700);
+  })();
+
   /* Legal pages are not built yet: keep those links from jumping the page */
   document.querySelectorAll("a[data-soon]").forEach(function (a) {
     a.addEventListener("click", function (e) { e.preventDefault(); });
+  });
+
+  /* Pause control for the hero demo */
+  var vt = document.getElementById("viz-toggle");
+  if (vt) vt.addEventListener("click", function () {
+    var p = vt.getAttribute("aria-pressed") !== "true";
+    vt.setAttribute("aria-pressed", String(p));
+    vt.textContent = p ? "Play animation" : "Pause animation";
+    vt.closest(".viz").classList.toggle("paused", p);
   });
 
   /* Mobile menu */
@@ -79,10 +127,9 @@
   var form = document.getElementById("contact-form");
   if (!form) return;
 
-  /* Formspree: replace YOUR_FORM_ID in contact.html (the action and
-     data-endpoint attributes) with your form's ID from formspree.io. */
+  /* Formspree: the form ID is set in contact.html (the action and
+     data-endpoint attributes). */
   var ENDPOINT = form.getAttribute("data-endpoint") || "";
-  if (/YOUR_FORM_ID/.test(ENDPOINT)) ENDPOINT = "";
 
   var status = document.getElementById("form-status");
   var submit = document.getElementById("form-submit");
