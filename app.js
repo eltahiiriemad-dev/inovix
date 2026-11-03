@@ -12,7 +12,7 @@
   (function chat() {
     var wa = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12.04 2a9.9 9.9 0 00-8.4 15.1L2 22l5-1.6A9.9 9.9 0 1012.04 2zm0 1.8a8.1 8.1 0 11-4.3 15l-.3-.2-2.9.9.9-2.8-.2-.3A8.1 8.1 0 0112.04 3.8zM8.6 7.6c-.2 0-.5.1-.7.3-.3.3-1 1-1 2.4s1 2.7 1.2 2.9c.1.2 2 3.2 5 4.4 2.5 1 3 .8 3.5.7.6-.1 1.8-.7 2-1.4.3-.7.3-1.3.2-1.4l-.5-.3-1.8-.9c-.3-.1-.5-.1-.7.1l-.8 1c-.1.2-.3.2-.6.1-.3-.2-1.1-.4-2.1-1.3-.8-.7-1.3-1.5-1.5-1.8-.1-.3 0-.4.1-.6l.4-.5.3-.4c.1-.2.1-.3 0-.5l-.8-2c-.2-.5-.4-.4-.6-.4z"/></svg>';
     var live = /^\d{8,15}$/.test(WHATSAPP_NUMBER);
-    var href = live ? "https://wa.me/" + WHATSAPP_NUMBER + "?text=" + encodeURIComponent(WHATSAPP_TEXT) : "";
+    var href = live ? "https://wa.me/" + WHATSAPP_NUMBER + "?text=" + encodeURIComponent(T(WHATSAPP_TEXT)) : "";
     var box = document.createElement("div");
     box.className = "chat";
     box.innerHTML =
@@ -34,7 +34,7 @@
     var fab = box.querySelector("#chat-btn"), pn = box.querySelector("#chat-panel"), dot = box.querySelector(".chat-dot");
     function set(o) {
       fab.setAttribute("aria-expanded", String(o));
-      fab.setAttribute("aria-label", o ? "Close chat" : "Open chat");
+      fab.setAttribute("aria-label", T(o ? "Close chat" : "Open chat"));
       pn.classList.toggle("open", o);
       pn.toggleAttribute("inert", !o);
       if (o && dot) dot.style.display = "none";
@@ -104,7 +104,7 @@
   function setMenu(open) {
     if (!btn || !panel) return;
     btn.setAttribute("aria-expanded", String(open));
-    btn.setAttribute("aria-label", open ? "Close menu" : "Open menu");
+    btn.setAttribute("aria-label", T(open ? "Close menu" : "Open menu"));
     panel.classList.toggle("open", open);
     document.body.classList.toggle("lock", open);
     panel.toggleAttribute("inert", !open);

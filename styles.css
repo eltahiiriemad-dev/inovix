@@ -289,10 +289,6 @@ form{display:grid;gap:20px}
 .foot nav a:hover{color:var(--ink);text-decoration:underline;text-underline-offset:4px;text-decoration-color:var(--rose)}
 .foot .legal{margin-top:40px;padding-top:20px;border-top:1px solid var(--line);font-size:.8125rem;color:var(--grey)}
 
-@supports (view-transition-name:a){@view-transition{navigation:auto}}
-::view-transition-old(root){animation:.18s ease both vt-out}
-::view-transition-new(root){animation:.3s ease both vt-in}
-@keyframes vt-out{to{opacity:0}}@keyframes vt-in{from{opacity:0}}
 
 /* ===== Teal and coral direction ===== */
 .eyebrow::before{background:var(--coral);width:22px;height:2px}
