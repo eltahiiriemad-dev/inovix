@@ -1,5 +1,6 @@
 (function () {
   "use strict";
+  function T(s) { return window.__tr ? window.__tr(s) : s; }
 
   /* Live chat on WhatsApp. Put the business number here in international
      format with digits only (country code first, no + or spaces), for
@@ -26,6 +27,10 @@
         '<svg class="m" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5.5A2.5 2.5 0 016.5 3h11A2.5 2.5 0 0120 5.5v8a2.5 2.5 0 01-2.5 2.5H11l-4.5 4v-4h0A2.5 2.5 0 014 13.5z"/><path d="M8.5 8.5h7M8.5 11.5h4.5"/></svg>' +
         '<svg class="x" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg><i class="chat-dot"></i></button>';
     document.body.appendChild(box);
+    var waLink = box.querySelector("a.wa");
+    document.addEventListener("langchange", function () {
+      if (waLink) waLink.href = "https://wa.me/" + WHATSAPP_NUMBER + "?text=" + encodeURIComponent(T(WHATSAPP_TEXT));
+    });
     var fab = box.querySelector("#chat-btn"), pn = box.querySelector("#chat-panel"), dot = box.querySelector(".chat-dot");
     function set(o) {
       fab.setAttribute("aria-expanded", String(o));
@@ -144,9 +149,9 @@
   }
   function check(field) {
     var v = field.value.trim();
-    if (field.required && !v) { setErr(field, field.getAttribute("data-req") || "This field is required."); return false; }
-    if (field.type === "email" && v && !emailRe.test(v)) { setErr(field, "Enter a valid email address, for example name@company.com."); return false; }
-    if (field.name === "message" && v && v.length < 20) { setErr(field, "Add a little more detail, at least 20 characters."); return false; }
+    if (field.required && !v) { setErr(field, T(field.getAttribute("data-req") || "This field is required.")); return false; }
+    if (field.type === "email" && v && !emailRe.test(v)) { setErr(field, T("Enter a valid email address, for example name@company.com.")); return false; }
+    if (field.name === "message" && v && v.length < 20) { setErr(field, T("Add a little more detail, at least 20 characters.")); return false; }
     setErr(field, "");
     return true;
   }
@@ -167,33 +172,33 @@
     status.className = "status";
     var first = null, ok = true;
     fields.forEach(function (f) { if (!check(f)) { ok = false; if (!first) first = f; } });
-    if (!ok) { first.focus(); show("bad", "Please fix the highlighted fields and send again."); return; }
+    if (!ok) { first.focus(); show("bad", T("Please fix the highlighted fields and send again.")); return; }
     if (form.querySelector(".hp input").value) return; /* spam trap */
 
     if (!ENDPOINT) {
-      show("bad", "This form is not connected to a mailbox yet, so your message was not sent. Please try again later.");
+      show("bad", T("This form is not connected to a mailbox yet, so your message was not sent. Please try again later."));
       return;
     }
     submit.disabled = true;
-    submit.firstChild.textContent = "Sending";
+    submit.firstChild.textContent = T("Sending") + " ";
     fetch(ENDPOINT, { method: "POST", headers: { Accept: "application/json" }, body: new FormData(form) })
       .then(function (r) {
         if (r.ok) {
           form.reset();
-          show("ok", "Thank you. Your message has been sent and we will get back to you by email.");
+          show("ok", T("Thank you. Your message has been sent and we will get back to you by email."));
           return;
         }
         return r.json().then(function (d) {
           var m = d && d.errors && d.errors.map(function (x) { return x.message; }).join(" ");
-          show("bad", m || "Your message could not be sent. Please try again.");
-        }, function () { show("bad", "Your message could not be sent. Please try again."); });
+          show("bad", m || T("Your message could not be sent. Please try again."));
+        }, function () { show("bad", T("Your message could not be sent. Please try again.")); });
       })
       .catch(function () {
-        show("bad", "Your message could not be sent. Check your connection and try again.");
+        show("bad", T("Your message could not be sent. Check your connection and try again."));
       })
       .then(function () {
         submit.disabled = false;
-        submit.firstChild.textContent = "Send message";
+        submit.firstChild.textContent = T("Send message") + " ";
       });
   });
 })();
