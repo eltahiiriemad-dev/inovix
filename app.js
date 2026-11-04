@@ -7,7 +7,7 @@
      example "212600000000". Until it is set, the chat button says the
      chat is not connected yet. */
   var WHATSAPP_NUMBER = "212728041767";
-  var WHATSAPP_TEXT = "Hello Inovix Technologies, I would like to talk about a project.";
+  var WHATSAPP_TEXT = "Hello ZaynTTex, I would like to talk about a project.";
 
   (function chat() {
     var wa = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12.04 2a9.9 9.9 0 00-8.4 15.1L2 22l5-1.6A9.9 9.9 0 1012.04 2zm0 1.8a8.1 8.1 0 11-4.3 15l-.3-.2-2.9.9.9-2.8-.2-.3A8.1 8.1 0 0112.04 3.8zM8.6 7.6c-.2 0-.5.1-.7.3-.3.3-1 1-1 2.4s1 2.7 1.2 2.9c.1.2 2 3.2 5 4.4 2.5 1 3 .8 3.5.7.6-.1 1.8-.7 2-1.4.3-.7.3-1.3.2-1.4l-.5-.3-1.8-.9c-.3-.1-.5-.1-.7.1l-.8 1c-.1.2-.3.2-.6.1-.3-.2-1.1-.4-2.1-1.3-.8-.7-1.3-1.5-1.5-1.8-.1-.3 0-.4.1-.6l.4-.5.3-.4c.1-.2.1-.3 0-.5l-.8-2c-.2-.5-.4-.4-.6-.4z"/></svg>';
@@ -47,7 +47,7 @@
 
   /* Cookie consent. The choice is remembered in this browser only. */
   (function cookies() {
-    var KEY = "inovix-cookie-consent";
+    var KEY = "zaynttex-cookie-consent";
     function read() { try { return localStorage.getItem(KEY); } catch (e) { return null; } }
     function write(v) { try { localStorage.setItem(KEY, v); } catch (e) {} }
     var box = document.createElement("div");
@@ -97,6 +97,80 @@
     vt.textContent = p ? "Play animation" : "Pause animation";
     vt.closest(".viz").classList.toggle("paused", p);
   });
+
+  /* Every page opens at the top, except when using the Back or Forward button. */
+  var navType = "";
+  try { navType = performance.getEntriesByType("navigation")[0].type; } catch (e) {}
+  function toTop() { window.scrollTo({ top: 0, left: 0, behavior: "instant" }); }
+  if (navType !== "back_forward") {
+    toTop();
+    window.addEventListener("load", toTop);
+    window.addEventListener("pageshow", function (e) { if (!e.persisted) toTop(); });
+  }
+
+  /* A link to the page you are already on scrolls to the top (smoothly) instead of reloading in place */
+  document.addEventListener("click", function (e) {
+    var a = e.target.closest && e.target.closest("a[href]");
+    if (!a || a.target === "_blank" || e.ctrlKey || e.metaKey || e.shiftKey) return;
+    var href = a.getAttribute("href");
+    if (!/\.html$/.test(href)) return;
+    var here = location.pathname.split("/").pop() || "index.html";
+    if (href === here) {
+      e.preventDefault();
+      window.scrollTo({ top: 0, behavior: "smooth" });
+      var m = document.getElementById("menu-btn");
+      if (m && m.getAttribute("aria-expanded") === "true") m.click();
+    }
+  });
+
+  /* Typing code window (Our Work header) */
+  (function codeWindow() {
+    var host = document.getElementById("code-win-lines");
+    if (!host) return;
+    var L = [
+      [["c", "// project placeholder"]],
+      [["k", "const "], ["v", "project"], ["p", " = {"]],
+      [["p", "  "], ["v", "status"], ["p", ": "], ["s", "\"coming soon\""], ["p", ","]],
+      [["p", "  "], ["v", "stack"], ["p", ": ["], ["s", "\"React\""], ["p", ", "], ["s", "\"Node\""], ["p", ", "], ["s", "\"API\""], ["p", "],"]],
+      [["p", "};"]],
+      [],
+      [["k", "export function "], ["f", "deliver"], ["p", "("], ["v", "idea"], ["p", ") {"]],
+      [["p", "  "], ["k", "const "], ["v", "plan"], ["p", " = "], ["f", "scope"], ["p", "(idea);"]],
+      [["p", "  "], ["k", "return "], ["f", "build"], ["p", "(plan)."], ["f", "review"], ["p", "();"]],
+      [["p", "}"]]
+    ];
+    var still = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    var timer = null;
+    function line() { var d = document.createElement("div"); d.className = "cwl"; host.appendChild(d); return d; }
+    function span(parent, cls) { var s = document.createElement("span"); s.className = "tk-" + cls; parent.appendChild(s); return s; }
+    function renderAll() {
+      host.textContent = "";
+      L.forEach(function (segs) { var d = line(); segs.forEach(function (g) { span(d, g[0]).textContent = g[1]; }); });
+    }
+    if (still) { renderAll(); return; }
+    var caret = document.createElement("span"); caret.className = "caret";
+    function run() {
+      host.textContent = "";
+      var li = 0, si = 0, ci = 0, d = line(), s = null;
+      d.appendChild(caret);
+      function step() {
+        if (li >= L.length) { timer = setTimeout(run, 4200); return; }
+        var segs = L[li];
+        if (!segs.length || si >= segs.length) {
+          li++; si = 0; ci = 0;
+          if (li < L.length) { d = line(); d.appendChild(caret); s = null; }
+          timer = setTimeout(step, 260);
+          return;
+        }
+        if (ci === 0) { s = span(d, segs[si][0]); d.insertBefore(s, caret); }
+        s.textContent += segs[si][1].charAt(ci++);
+        if (ci >= segs[si][1].length) { si++; ci = 0; }
+        timer = setTimeout(step, 38 + Math.random() * 55);
+      }
+      step();
+    }
+    run();
+  })();
 
   /* Mobile menu */
   var btn = document.getElementById("menu-btn");
