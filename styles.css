@@ -650,3 +650,52 @@ h2{line-height:1.18}
 .cwl::before{display:inline-block}
 .page-head.has-code{overflow:hidden}
 @media(max-width:959px){.code-win{opacity:.14}}
+
+/* Article */
+.art-meta{display:flex;flex-wrap:wrap;gap:6px 20px;margin-top:22px;font-size:.875rem;font-weight:500;color:rgba(255,255,255,.82)}
+.art-meta span+span::before{content:"";display:inline-block;width:4px;height:4px;border-radius:50%;background:var(--coral);margin-right:20px;vertical-align:middle}
+.toc-title{font-size:.75rem;font-weight:600;letter-spacing:.09em;text-transform:uppercase;color:var(--grey);margin:0 0 12px}
+.toc{margin:0 0 28px;padding:0;list-style:none;display:flex;flex-direction:column;border-top:1px solid var(--line)}
+.toc a{display:block;padding:11px 0;border-bottom:1px solid var(--line);font-size:.9375rem;color:var(--ink-soft);text-decoration:none;transition:color .2s,padding .25s var(--ease)}
+.toc a:hover{color:var(--teal);padding-left:6px}
+.art-body{max-width:70ch}
+.art-body h2{scroll-margin-top:96px}
+.art-body p{font-size:1.0625rem}
+.stat-grid{margin:36px 0 12px;padding:0;list-style:none;display:grid;gap:14px;grid-template-columns:1fr 1fr}
+.stat-grid li{background:var(--blush);border:1px solid var(--line);border-radius:var(--r-md);padding:20px;display:flex;flex-direction:column;gap:8px;min-width:0}
+.stat-grid b{font-size:clamp(1.75rem,3.4vw,2.5rem);font-weight:600;letter-spacing:-.03em;line-height:1;color:var(--teal);font-variant-numeric:tabular-nums}
+.stat-grid span{font-size:.875rem;line-height:1.5;color:var(--grey)}
+@media(max-width:520px){.stat-grid{grid-template-columns:1fr}}
+.ref{font-size:.7em;line-height:0;margin-left:1px}
+.ref a{color:var(--teal);text-decoration:none;font-weight:600;padding:0 2px}
+.ref a:hover{text-decoration:underline}
+.art-body ol.sources{padding-left:1.4em}
+.art-body ol.sources li{scroll-margin-top:96px;padding-left:6px}
+.art-body ol.sources a{word-break:break-word}
+.art-body ol:not(.sources) li::marker{color:var(--teal);font-weight:600}
+.res-stat{text-decoration:none;color:#fff;background:linear-gradient(120deg,#0A4E57,#0E6670 65%,#2F7F7D);border:0;justify-content:space-between;padding:clamp(24px,4vw,40px);min-height:300px;transition:transform .3s var(--ease)}
+.res-stat:hover{transform:translateY(-3px)}
+.res-num{font-size:clamp(3.5rem,8vw,6rem);font-weight:600;letter-spacing:-.04em;line-height:1}
+.res-cap{font-size:1.125rem;line-height:1.45;max-width:30ch;color:rgba(255,255,255,.9)}
+.res-src{font-size:.8125rem;letter-spacing:.06em;text-transform:uppercase;color:rgba(255,255,255,.7)}
+.cat-link{display:inline-flex;align-items:center;gap:8px;font-size:.9375rem;font-weight:600;color:var(--teal);text-decoration:none}
+.cat-link svg{width:16px;height:16px;transition:transform .25s var(--ease)}
+.cat-link:hover svg{transform:translateX(3px)}
+@media(min-width:960px){.cat-link{justify-self:end}}
+.legal-body .stat-grid{margin:36px 0 12px;padding:0;list-style:none}
+.legal-body .stat-grid li{margin:0;padding:20px}
+@media(max-width:959px){.art-layout .toc,.art-layout .toc-title{display:none}}
+
+/* Make published articles stand out from the page background */
+.res-card{background:var(--white);border:1px solid var(--line-strong);border-radius:var(--r-lg);padding:clamp(16px,2.5vw,28px);box-shadow:0 1px 2px rgba(16,49,58,.05),0 24px 48px -24px rgba(16,49,58,.22)}
+.res-card .res-side{padding:clamp(8px,2vw,24px)}
+.cat-link{padding:10px 18px;border-radius:var(--pill);background:var(--pink);border:1px solid var(--line-strong);color:var(--teal-deep);transition:background .2s,border-color .2s}
+.cat-link:hover{background:var(--teal);color:#fff;border-color:var(--teal)}
+.stat-grid li{background:var(--white);border:1px solid var(--line-strong);box-shadow:0 1px 2px rgba(16,49,58,.05),0 12px 28px -18px rgba(16,49,58,.25)}
+.stat-grid span{color:var(--ink-soft)}
+.legal-body .stat-grid li{background:var(--white)}
+.art-body{--stat-bg:var(--white)}
+
+.res-card.res-feature{grid-template-columns:1fr}
+.res-card .res-side{padding:clamp(12px,3vw,36px);max-width:62ch}
+.stat-grid.three{grid-template-columns:repeat(3,1fr)}@media(max-width:760px){.stat-grid.three{grid-template-columns:1fr}}
